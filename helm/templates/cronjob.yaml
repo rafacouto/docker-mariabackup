@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mariadb-backup
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - command:
+            - /bin/bash
+            - docker-entrypoint.sh
+            envFrom:
+            - configMapRef:
+                name: mariadb-backup-env
+                optional: false
+            image: docker.io/caligari/mariadb-backup:1.0.1
+            name: maria-backup
+          restartPolicy: Never
+  concurrencyPolicy: Deny
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  suspend: false
+  schedule: 0 5 * * *
+  timeZone: Europe/Madrid
