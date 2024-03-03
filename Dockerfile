@@ -1,8 +1,11 @@
-FROM docker.io/library/rclone/rclone AS rclone
+FROM docker.io/rclone/rclone AS rclone
 FROM docker.io/library/mariadb
 
 COPY --from=rclone /usr/local/bin/rclone /usr/local/bin/rclone
-COPY docker-entrypoint.sh /
 
-ENTRYPOINT [ "/docker-entrypoint.sh" ]
+WORKDIR /opt/mariadb-backup
 
+COPY docker-entrypoint.sh ./
+ENTRYPOINT [ "/opt/mariadb-backup/docker-entrypoint.sh" ]
+
+USER mysql

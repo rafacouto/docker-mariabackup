@@ -8,7 +8,7 @@ require_env_var() {
 }
 
 expect_rc() {
-	if [ $code -eq $1 ] ; then
+	if [ "$2" == "$1" ] ; then
 		echo "$3 OK"
 	else
 		echo "$3 expected return with $1 but $2: abort"
@@ -16,13 +16,18 @@ expect_rc() {
 	fi
 }
 
-DUMP_ARCHIVE=/tmp/dump-$(date +%s).sql.zst
+DUMP_ARCHIVE=/tmp/dump.sql.zst
 require_env_var MARIADB_USERNAME
 require_env_var MARIADB_PASSWORD
 require_env_var MARIADB_HOSTNAME
+require_env_var RCLONE_REMOTE_PATH
 
 EXTRA_ARGS=${MARIADB_DUMP_ARGS:---single-transaction}
-DB_ARG=$([ -s $MARIADB_DATABASES ] && echo "--databases ${MARIADB_DATABASES}" || echo '--all-databases')
+if [ -z $MARIADB_DATABASES ] ; then
+	DB_ARG='--all-databases'
+else
+	DB_ARG="--databases ${MARIADB_DATABASES}"
+fi
 
 /usr/bin/mariadb-dump \
 	--user=${MARIADB_USERNAME} --password=${MARIADB_PASSWORD} \
@@ -30,6 +35,11 @@ DB_ARG=$([ -s $MARIADB_DATABASES ] && echo "--databases ${MARIADB_DATABASES}" ||
 	${EXTRA_ARGS} ${DB_ARG} \
 	| zstd > $DUMP_ARCHIVE
 
-expect_rc 0 $? 'mariadb-dump'
+[ $(zstdcat $DUMP_ARCHIVE | tail | grep -c 'Dump completed on ') -gt 0 ] || exit 2
+
+REMOTE_FILE="dump-$(date +%Y%m%d).sql.zst"
+/usr/local/bin/rclone -v copyto "${DUMP_ARCHIVE}" "rmt:${RCLONE_REMOTE_PATH}/${REMOTE_FILE}" 
+RC=$?
+expect_rc 0 $RC 'rclone'
 
 exit 0
