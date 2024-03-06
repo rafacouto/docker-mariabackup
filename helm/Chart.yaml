@@ -1,6 +1,6 @@
 apiVersion: v2
 name: mariabackup
-description: A Helm chart for Kubernetes
+description: MariaDB backups with mariadb-dump and upload to a blob storage with rclone.
 
 # A chart can be either an 'application' or a 'library' chart.
 #

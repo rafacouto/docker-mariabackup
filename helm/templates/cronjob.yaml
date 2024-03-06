@@ -7,20 +7,22 @@ spec:
     spec:
       template:
         spec:
+          serviceAccountName: {{ include "mariabackup.serviceAccountName" $ }}
+          restartPolicy: Never
           containers:
-          - command:
+          - name: mariabackup
+            image: '{{- printf "%s:%s" .Values.image.repository .Chart.AppVersion }}'
+            command:
             - /bin/bash
             - docker-entrypoint.sh
             envFrom:
             - configMapRef:
-                name: mariadb-backup-env
+                name: mariabackup-env
                 optional: false
-            image: docker.io/caligari/mariadb-backup:1.0.1
-            name: maria-backup
-          restartPolicy: Never
-  concurrencyPolicy: Deny
-  successfulJobsHistoryLimit: 1
-  failedJobsHistoryLimit: 1
   suspend: false
   schedule: 0 5 * * *
   timeZone: Europe/Madrid
+  concurrencyPolicy: Deny
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+
