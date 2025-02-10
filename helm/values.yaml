@@ -3,6 +3,9 @@
 # Declare variables to be passed into your templates.
 
 config:
+  cronjob:
+    timeZone: "Europe/Madrid"
+    schedule: "0 5 * * *"
   mariadb:
     hostname: "mariadb-secondary.mariadb.svc.cluster.local"
     port: "3306"

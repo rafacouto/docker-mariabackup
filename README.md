@@ -15,6 +15,8 @@ upload to a blob storage with rclone.
 | `MARIADB_USERNAME` | '' | (required) User for login. | 
 | `MARIADB_PASSWORD` | '' | (required) Password to use when connecting to server. | 
 | `MARIADB_DUMP_ARGS` | '--single-transaction' | Extra arguments to pass to mariadb-dump command. | 
+| `RCLONE_REMOTE_PATH` | 'db-mariabackup' | Remote path where the dump is put (directory) | 
+
 
 To configure the rclone use the [variables related to your storage](https://rclone.org/docs/).  
 The variable name has to start with `RCLONE_CONFIG_RMT_` (the remote name internally used by scripts is `rmt`).

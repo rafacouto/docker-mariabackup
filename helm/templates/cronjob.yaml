@@ -20,9 +20,9 @@ spec:
                 name: mariabackup-env
                 optional: false
   suspend: false
-  schedule: 0 5 * * *
-  timeZone: Europe/Madrid
-  concurrencyPolicy: Deny
+  schedule: '{{ .Values.config.cronjob.schedule }}'
+  timeZone: '{{ .Values.config.cronjob.timeZone }}'
+  concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
 
