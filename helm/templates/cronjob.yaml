@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mariadb-backup
+spec:
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ include "mariabackup.serviceAccountName" $ }}
+          restartPolicy: Never
+          containers:
+          - name: mariabackup
+            image: '{{- printf "%s:%s" .Values.image.repository .Chart.AppVersion }}'
+            command:
+            - /bin/bash
+            - docker-entrypoint.sh
+            envFrom:
+            - configMapRef:
+                name: mariabackup-env
+                optional: false
+  suspend: false
+  schedule: '{{ .Values.config.cronjob.schedule }}'
+  timeZone: '{{ .Values.config.cronjob.timeZone }}'
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+

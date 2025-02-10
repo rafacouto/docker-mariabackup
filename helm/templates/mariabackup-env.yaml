@@ -1,0 +1,11 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: mariabackup-env
+data:
+  MARIADB_HOSTNAME: {{ .Values.config.mariadb.hostname }}
+  MARIADB_PASSWORD: {{ .Values.config.mariadb.password }}
+  MARIADB_PORT: {{ .Values.config.mariadb.port | quote }}
+  MARIADB_USERNAME: {{ .Values.config.mariadb.username }}
+  RCLONE_REMOTE_PATH: {{ .Values.config.rclone.remotePath }}
+  {{- toYaml .Values.config.rclone.envVars | nindent 2 }}
