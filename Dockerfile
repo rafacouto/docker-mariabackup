@@ -9,3 +9,6 @@ COPY docker-entrypoint.sh ./
 ENTRYPOINT [ "/opt/mariadb-backup/docker-entrypoint.sh" ]
 
 USER mysql
+
+RUN touch ~/.rclone.conf
+
