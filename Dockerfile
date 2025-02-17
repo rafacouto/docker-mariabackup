@@ -5,6 +5,8 @@ COPY --from=rclone /usr/local/bin/rclone /usr/local/bin/rclone
 
 WORKDIR /opt/mariadb-backup
 
+ENV RCLONE_REMOTE_PATH=mariabackup-dumps
+
 COPY docker-entrypoint.sh ./
 ENTRYPOINT [ "/opt/mariadb-backup/docker-entrypoint.sh" ]
 

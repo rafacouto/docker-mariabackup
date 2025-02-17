@@ -4,7 +4,7 @@
 
 config:
   cronjob:
-    timeZone: "Europe/Madrid"
+    timeZone: "UTC"
     schedule: "0 5 * * *"
   mariadb:
     hostname: "mariadb-secondary.mariadb.svc.cluster.local"
@@ -12,7 +12,7 @@ config:
     username: "maria-user"
     password: "maria-pass"
   rclone:
-    remotePath: "db-mariabackup"
+    remotePath: "mariabackup-dumps"
     envVars:
 
       ##### google cloud storage
@@ -26,12 +26,14 @@ config:
           ...
         }
 
-      ##### s3
+      ##### s3 storage
+      # RCLONE_CONFIG_RMT_TYPE: "s3"
+      # RCLONE_CONFIG_RMT_PROVIDER: "AWS"
       # RCLONE_CONFIG_RMT_ACCESS_KEY_ID: "..."
       # RCLONE_CONFIG_RMT_SECRET_ACCESS_KEY: "..."
       # RCLONE_CONFIG_RMT_ENDPOINT: "..."
 
-      ##### other (see https://rclone.org/docs/)
+      ##### other storage types (see https://rclone.org/docs/)
 
 image:
   repository: "docker.io/caligari/mariabackup"
@@ -57,17 +59,11 @@ serviceAccount:
 podAnnotations: {}
 podLabels: {}
 
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
+securityContext:
+  capabilities:
+    drop:
+    - ALL
+  runAsNonRoot: true
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
@@ -86,3 +82,4 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
