@@ -4,6 +4,11 @@ on:
   push:
     tags:
       - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Version tag to build (e.g. 12.2.1)'
+        required: true
 
 env:
   REGISTRY: ghcr.io
@@ -33,9 +38,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            type=semver,pattern={{version}},value=${{ github.ref_name }}
-            type=semver,pattern={{major}}.{{minor}},value=${{ github.ref_name }}
-            type=semver,pattern={{major}},value=${{ github.ref_name }}
+            type=semver,pattern={{version}},value=${{ github.event.inputs.tag || github.ref_name }}
+            type=semver,pattern={{major}}.{{minor}},value=${{ github.event.inputs.tag || github.ref_name }}
+            type=semver,pattern={{major}},value=${{ github.event.inputs.tag || github.ref_name }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
