@@ -1,5 +1,5 @@
-FROM docker.io/rclone/rclone:1.69.0 AS rclone
-FROM docker.io/library/mariadb:11.6.2
+FROM docker.io/rclone/rclone:1.74.1 AS rclone
+FROM docker.io/library/mariadb:12.2.2
 
 COPY --from=rclone /usr/local/bin/rclone /usr/local/bin/rclone
 
