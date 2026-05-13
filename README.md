@@ -1,8 +1,26 @@
 # MariaBackup
 
+[![Docker image](https://img.shields.io/github/v/tag/rafacouto/docker-mariabackup?label=image&logo=docker)](https://github.com/rafacouto/docker-mariabackup/pkgs/container/docker-mariabackup)
+
 Run MariaDB backups using mariadb-dump and upload them with rclone to blob storage or any other destination.
 
 ## Usage
+
+### Docker image
+
+The image version tracks the bundled MariaDB version. You can reference it in three ways:
+
+| Tag | Example | Description |
+|-----|---------|-------------|
+| `x.y.z` | `12.2.1` | Exact version |
+| `x.y` | `12.2` | Latest patch for that minor version *(recommended)* |
+| `x` | `12` | Latest minor for that major version |
+
+```
+docker pull ghcr.io/rafacouto/docker-mariabackup:12.2
+```
+
+Using the minor tag (`x.y`) is recommended: you get patch updates automatically while staying on a stable minor version.
 
 ### Environment variables
 
