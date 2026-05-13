@@ -38,20 +38,58 @@ Using the minor tag (`x.y`) is recommended: you get patch updates automatically 
 To configure rclone, use the [environment variables for your storage backend](https://rclone.org/docs/).  
 Variable names must start with `RCLONE_CONFIG_RMT_` (the remote name used internally is `rmt`).
 
-S3 example:
+#### AWS S3
+
 ```
 RCLONE_CONFIG_RMT_TYPE=s3
+RCLONE_CONFIG_RMT_PROVIDER=AWS
 RCLONE_CONFIG_RMT_ACCESS_KEY_ID=...
 RCLONE_CONFIG_RMT_SECRET_ACCESS_KEY=...
-RCLONE_CONFIG_RMT_ENDPOINT=...
+RCLONE_CONFIG_RMT_REGION=eu-west-1
 ```
 
-GCS example:
+#### Google Cloud Storage (GCS)
+
 ```
 RCLONE_CONFIG_RMT_TYPE=gcs
-RCLONE_CONFIG_RMT_CLIENT_ID=...
-RCLONE_CONFIG_RMT_CLIENT_SECRET=...
 RCLONE_CONFIG_RMT_PROJECT_NUMBER=...
+RCLONE_CONFIG_RMT_SERVICE_ACCOUNT_CREDENTIALS={ "type": "service_account", ... }
+```
+
+#### Azure Blob Storage
+
+```
+RCLONE_CONFIG_RMT_TYPE=azureblob
+RCLONE_CONFIG_RMT_ACCOUNT=...
+RCLONE_CONFIG_RMT_KEY=...
+```
+
+#### Cloudflare R2
+
+```
+RCLONE_CONFIG_RMT_TYPE=s3
+RCLONE_CONFIG_RMT_PROVIDER=Cloudflare
+RCLONE_CONFIG_RMT_ACCESS_KEY_ID=...
+RCLONE_CONFIG_RMT_SECRET_ACCESS_KEY=...
+RCLONE_CONFIG_RMT_ENDPOINT=https://<account_id>.r2.cloudflarestorage.com
+```
+
+#### Backblaze B2
+
+```
+RCLONE_CONFIG_RMT_TYPE=b2
+RCLONE_CONFIG_RMT_ACCOUNT=...
+RCLONE_CONFIG_RMT_KEY=...
+```
+
+#### MinIO (and other S3-compatible)
+
+```
+RCLONE_CONFIG_RMT_TYPE=s3
+RCLONE_CONFIG_RMT_PROVIDER=Minio
+RCLONE_CONFIG_RMT_ACCESS_KEY_ID=...
+RCLONE_CONFIG_RMT_SECRET_ACCESS_KEY=...
+RCLONE_CONFIG_RMT_ENDPOINT=https://minio.example.com
 ```
 
 ## Support
