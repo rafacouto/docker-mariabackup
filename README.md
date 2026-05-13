@@ -1,7 +1,6 @@
 # MariaBackup
 
-This image contains everything to do MariaDB backups with mariadb-dump and 
-upload to a blob storage with rclone.
+Do MariaDB backups with mariadb-dump and upload with rclone to a blob storage or anywhere.
 
 ## Usage
 
@@ -39,10 +38,9 @@ RCLONE_CONFIG_RMT_PROJECT_NUMBER=...
 
 ## Support
 
-Please, review/open issues at [issue tracker](https://gitlab.com/treboada/docker-mariabackup/-/issues)
-or email to [the inbox of issue tracker](mailto:incoming+treboada-docker-mariabackup-55160666-9glddzg5nzkz7s7geiescpsc7-issue@incoming.gitlab.com)
-(the subject will be used as the title of the new issue, and the message will
-be the description. Quick actions and styling with Markdown are supported.)
+Please, review/open issues at [issue tracker][ISS01].
+
+[ISS01]: https://github.com/rafacouto/docker-mariabackup/issues
 
 ## License
 
