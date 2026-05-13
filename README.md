@@ -1,24 +1,24 @@
 # MariaBackup
 
-Do MariaDB backups with mariadb-dump and upload with rclone to a blob storage or anywhere.
+Run MariaDB backups using mariadb-dump and upload them with rclone to blob storage or any other destination.
 
 ## Usage
 
 ### Environment variables
 
-| var name | default | observations |
-|----------|---------|--------------|
-| `MARIADB_DATABASES` | '' | DB names to dump or empty to dump all. | 
-| `MARIADB_HOSTNAME` | '' | (required) Connect to host. | 
-| `MARIADB_PORT` | '3306' | Port number to use for connection. | 
-| `MARIADB_USERNAME` | '' | (required) User for login. | 
-| `MARIADB_PASSWORD` | '' | (required) Password to use when connecting to server. | 
-| `MARIADB_DUMP_ARGS` | '--single-transaction' | Extra arguments to pass to mariadb-dump command. | 
-| `RCLONE_REMOTE_PATH` | 'mariabackup-dumps' | Remote path where the dump is put (directory) |
+| var name | default | description |
+|----------|---------|-------------|
+| `MARIADB_DATABASES` | '' | Database names to dump, or leave empty to dump all databases. | 
+| `MARIADB_HOSTNAME` | '' | (required) Host to connect to. | 
+| `MARIADB_PORT` | '3306' | Port number to use for the connection. | 
+| `MARIADB_USERNAME` | '' | (required) Username for authentication. | 
+| `MARIADB_PASSWORD` | '' | (required) Password for authentication. | 
+| `MARIADB_DUMP_ARGS` | '--single-transaction' | Extra arguments to pass to the mariadb-dump command. | 
+| `RCLONE_REMOTE_PATH` | 'mariabackup-dumps' | Remote path (directory) where the dump file is stored. |
 
 
-To configure the rclone use the [variables related to your storage](https://rclone.org/docs/).  
-The variable name has to start with `RCLONE_CONFIG_RMT_` (the remote name internally used by scripts is `rmt`).
+To configure rclone, use the [environment variables for your storage backend](https://rclone.org/docs/).  
+Variable names must start with `RCLONE_CONFIG_RMT_` (the remote name used internally is `rmt`).
 
 S3 example:
 ```
@@ -38,7 +38,7 @@ RCLONE_CONFIG_RMT_PROJECT_NUMBER=...
 
 ## Support
 
-Please, review/open issues at [issue tracker][ISS01].
+Please review or open issues in the [issue tracker][ISS01].
 
 [ISS01]: https://github.com/rafacouto/docker-mariabackup/issues
 

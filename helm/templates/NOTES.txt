@@ -1,1 +1,1 @@
-mariabackup cronjob was installed.
+MariaBackup CronJob has been installed.

@@ -11,7 +11,7 @@ expect_rc() {
 	if [ "$2" == "$1" ] ; then
 		echo "$3 OK"
 	else
-		echo "$3 expected return with $1 but $2: abort"
+		echo "$3 expected return code $1 but got $2: aborting"
 		exit 1
 	fi
 }
