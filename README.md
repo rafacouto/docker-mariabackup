@@ -2,7 +2,7 @@
 
 [![Docker image](https://img.shields.io/github/v/tag/rafacouto/docker-mariabackup?label=image&logo=docker)](https://github.com/rafacouto/docker-mariabackup/pkgs/container/docker-mariabackup)
 
-Run MariaDB backups using mariadb-dump and upload them with rclone to blob storage or any other destination.
+Container image to run (docker and helm) MariaDB backups using mariadb-dump and upload them to blob storage or any other destination supported by rclone.
 
 ## Usage
 
@@ -37,6 +37,8 @@ Using the minor tag (`x.y`) is recommended: you get patch updates automatically 
 
 To configure rclone, use the [environment variables for your storage backend](https://rclone.org/docs/).  
 Variable names must start with `RCLONE_CONFIG_RMT_` (the remote name used internally is `rmt`).
+
+Most used examples:
 
 #### AWS S3
 
